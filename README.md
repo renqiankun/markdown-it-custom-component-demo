@@ -59,8 +59,8 @@ yarn add markdown-it-custom-component
 ```typescript
 // 在你的 Vue 组件中
 import { onUnmounted, getCurrentInstance } from 'vue';
-import customComponentPlugin from 'markdown-it-custom-component'; // 插件名称
-
+import customComponentPlugin from 'markdown-it-custom-component';
+import 'markdown-it-custom-component/style.css'
 // 创建插件实例
 const { customPlugin, destroy } = customComponentPlugin();
 
@@ -79,7 +79,7 @@ import { onUnmounted, getCurrentInstance } from 'vue';
 import { config } from 'md-editor-v3';
 import MyComponent from './MyComponent.vue'; // 你的自定义 Vue 组件
 import customComponentPlugin ,{ type MDCustomPluginComponentOptions } from 'markdown-it-custom-component';
-
+import 'markdown-it-custom-component/style.css'
 // 创建插件实例
 const { customPlugin, destroy } = customComponentPlugin();
 // 获取 Vue 应用上下文
@@ -184,6 +184,7 @@ import 'md-editor-v3/lib/style.css';
 
 // 1. 导入你的插件和自定义组件
 import customComponentPlugin, { type MDCustomPluginComponentOptions } from 'markdown-it-custom-component';
+import 'markdown-it-custom-component/style.css'
 import MyChart from './components/MyChart.vue';
 
 // 2. 创建插件实例
@@ -202,13 +203,19 @@ config({
       {
         plugin: customPlugin,
         options: {
-          debug: true,
+          debug: false,
+          propsKey: '_data',
+          placeholderClass: 'custom-placeholder',
           appContext: getCurrentInstance()?.appContext,
           components: {
             'my-chart': {
               component: MyChart,
-              propsUseJson: true,
-              multipleProps: true,
+               forceMount: false,
+                renderIntermediate: false,
+                propsUseJson: false,
+                multipleProps: false,
+                propsKey: '_data',
+                placeholderClass: 'custom-placeholder',
             } as MDCustomPluginComponentOptions,
           },
         },

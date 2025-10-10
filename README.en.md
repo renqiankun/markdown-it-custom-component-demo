@@ -59,7 +59,8 @@ First, import the `customComponentPlugin` factory function from the plugin and c
 ```typescript
 // In your Vue component
 import { onUnmounted, getCurrentInstance } from 'vue'
-import customComponentPlugin from 'path/to/your/plugin' // Replace with your plugin path
+import customComponentPlugin from 'markdown-it-custom-component' 
+import 'markdown-it-custom-component/style.css'
 
 // Create plugin instance
 const { customPlugin, destroy } = customComponentPlugin()
@@ -77,7 +78,11 @@ Add `customPlugin` to `markdown-it`'s plugin list. If you are using `md-editor-v
 ```typescript
 import { config } from 'md-editor-v3'
 import MyComponent from './MyComponent.vue' // Your custom Vue component
-import { type MDCustomPluginComponentOptions } from 'path/to/your/plugin'
+import customComponentPlugin, {
+  type MDCustomPluginComponentOptions
+} from 'markdown-it-custom-component'
+import 'markdown-it-custom-component/style.css'
+const { customPlugin, destroy } = customComponentPlugin()
 
 // Get Vue application context
 const appContext = getCurrentInstance()?.appContext
@@ -113,7 +118,8 @@ Now, you can embed your components in Markdown content using the `:::` container
 ```markdown
 This is regular Markdown content.
 
-::: my-component { "title": "Dynamic Title", "value": 42 }
+:::
+ my-component { "title": "Dynamic Title", "value": 42 }
 :::
 
 The block above will be rendered as your `MyComponent.vue` component, receiving `title` and `value` as props.
@@ -171,8 +177,9 @@ import { MdEditor, config } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 
 // 1. Import your plugin and custom components
-import customComponentPlugin, { type MDCustomPluginComponentOptions } from './markdown-it-plugin'
-import MyChart from './components/MyChart.vue'
+import customComponentPlugin, { type MDCustomPluginComponentOptions } from 'markdown-it-custom-component';
+import 'markdown-it-custom-component/style.css'
+import MyChart from './components/MyChart.vue';
 
 // 2. Create plugin instance
 const { customPlugin, destroy } = customComponentPlugin()
@@ -190,13 +197,19 @@ config({
       {
         plugin: customPlugin,
         options: {
-          debug: true,
+         debug: false,
+          propsKey: '_data',
+          placeholderClass: 'custom-placeholder',
           appContext: getCurrentInstance()?.appContext,
           components: {
             'my-chart': {
               component: MyChart,
-              propsUseJson: true,
-              multipleProps: true
+               forceMount: false,
+                renderIntermediate: false,
+                propsUseJson: false,
+                multipleProps: false,
+                propsKey: '_data',
+                placeholderClass: 'custom-placeholder',
             } as MDCustomPluginComponentOptions
           }
         }
