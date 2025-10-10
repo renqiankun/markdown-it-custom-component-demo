@@ -13,7 +13,7 @@ This plugin is particularly suitable for scenarios requiring dynamic content dis
 ---
 
 #### [github](https://github.com/renqiankun/markdown-it-custom-component-demo)
-
+#### [demo](https://renqiankun.github.io/markdown-it-custom-component-demo/dist/)
 ---
 
 ## Features
