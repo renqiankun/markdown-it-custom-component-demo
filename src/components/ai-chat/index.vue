@@ -23,10 +23,8 @@ onMounted(() => {
 const init = async () => {
   dialogVisible.value = true
 
-  let list = `文本
-   :::my-component {"data":[1,2,3]} :::  
-   文本
-  :::my-component {"data":[1,2,3]} ::: 
+  let list = `文本 
+  :::my-component {"data":[1,2,3]}:::
   文本`
 
   //   let list = `文本

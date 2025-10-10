@@ -224,8 +224,7 @@ const text = ref(`
 
 The content below is rendered by a Vue component:
 
-::: my-chart { "type": "bar", "data": [40, 20, 12, 39, 10] }
-:::
+:::my-chart { "type": "bar", "data": [40, 20, 12, 39, 10] }:::
 `)
 </script>
 ```

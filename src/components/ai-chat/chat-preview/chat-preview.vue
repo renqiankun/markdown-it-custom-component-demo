@@ -27,6 +27,7 @@ import customComponentPlugin, { type MDCustomPluginComponentOptions } from 'mark
 import 'markdown-it-custom-component/style.css'
 import myComponent from './my-component.vue'
 import { getCurrentInstance, onMounted, onUnmounted } from 'vue';
+
 const { customPlugin, destroy } = customComponentPlugin();
 const props = withDefaults(
   defineProps<{

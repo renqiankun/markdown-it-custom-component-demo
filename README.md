@@ -124,9 +124,9 @@ onUnmounted(() => {
 ```markdown
 这里是普通的 Markdown 内容。
 
-::: 
-my-component { "title": "动态标题", "value": 42 }
-:::
+:::my-component { "title": "动态标题", "value": 42 }:::
+
+其他文本
 
 上面这个块会被渲染成你的 `MyComponent.vue` 组件，并接收 `title` 和 `value` 作为 props。
 ```
@@ -230,9 +230,7 @@ const text = ref(`
 
 下面的内容是一个 Vue 组件渲染的：
 
-::: 
-my-chart { "type": "bar", "data": [40, 20, 12, 39, 10] }
-:::
+::: my-chart { "type": "bar", "data": [40, 20, 12, 39, 10] }:::
 `);
 </script>
 ```
