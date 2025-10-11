@@ -6,6 +6,8 @@
 import { onMounted, ref } from 'vue'
 import aiChat from './Chat.vue'
 import { sleepHand } from '@/utils'
+  import { eventBus } from '@/utils/eventBus';
+
 let dialogVisible = ref(false)
 
 let messages = ref<Array<any>>([
@@ -19,15 +21,22 @@ let messages = ref<Array<any>>([
 
 onMounted(() => {
   init()
+  initEventHand()
 })
+const initEventHand = () => {
+  eventBus.on('addMessage', (data: any) => {
+    messages.value.push({
+      role: 'user',
+      useReasoner: false,
+      content: data
+    })
+  })
+}
 const init = async () => {
   dialogVisible.value = true
 
-  let list = `文本
-   :::my-component {"data":[1,2,3]}::: 
-   文本
-   :::my-component {"data":[1,2,3]}::: 
-   文本
+  let list = `请填写数据
+   :::my-component {input{name:'a'},date:{name:'b'}}:::
    `
 
   //   let list = `文本
@@ -35,7 +44,7 @@ const init = async () => {
 
   list.split('')
   for (var i of list.split('')) {
-    await sleepHand(100)
+    await sleepHand(10)
     messages.value[0].content += i
   }
   //  messages.value[0].content = list

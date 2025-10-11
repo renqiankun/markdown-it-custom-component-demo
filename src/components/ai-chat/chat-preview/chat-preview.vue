@@ -1,9 +1,11 @@
 <template>
   <!-- 聊天预览 -->
   <div class="preview-wrap">
+    
     <div class="preview-item" v-for="(item, index) in props.messages" :key="index">
+      <div style="text-align: right;" v-if="item.role=='user'">{{ item.content }}</div>
       <!-- 回答 -->
-      <chatAnswer  :receiveLoading="receiveLoading && index + 1 === messages?.length">
+      <chatAnswer v-else  :receiveLoading="receiveLoading && index + 1 === messages?.length">
         <MdPreview
           editorId="preview-only2"
           id="preview-only"

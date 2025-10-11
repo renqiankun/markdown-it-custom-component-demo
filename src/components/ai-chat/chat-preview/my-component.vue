@@ -1,15 +1,14 @@
 <template>
-<span>
-
-组件数据：{{ type }} {{ _data }} {{ _isComplete }}
-  <el-input v-model="test"></el-input>
-</span>
-
+  <span>
+    <el-input v-model="test"></el-input>
+    <el-button type="primary" @click="clickHand">提交</el-button>
+  </span>
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue';
-
+import { ElMessage } from 'element-plus'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { eventBus } from '@/utils/eventBus'
 const props = withDefaults(
   defineProps<{
     type: string
@@ -19,7 +18,7 @@ const props = withDefaults(
   {}
 )
 
-let test = ref('test')
+let test = ref('')
 
 onMounted(() => {
   console.log('mounted')
@@ -28,6 +27,13 @@ onMounted(() => {
 onBeforeUnmount(() => {
   console.log('unmounted')
 })
+
+const clickHand = () => {
+  if (!test.value) {
+    return ElMessage.warning('请输入内容')
+  }
+  eventBus.emit('addMessage', test.value)
+}
 </script>
 
 <style lang="scss" scoped></style>
