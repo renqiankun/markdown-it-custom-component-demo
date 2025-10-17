@@ -1,11 +1,12 @@
 <template>
-  <aiChat v-if="a" v-model="messages" :defaultSend="initData"></aiChat>
+  <aiChat v-if="a" v-model="messages"></aiChat>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import aiChat from './Chat.vue'
 import { sleepHand } from '@/utils'
+  import { eventBus } from '@/utils/eventBus';
 
 let dialogVisible = ref(false)
 
@@ -20,34 +21,40 @@ let messages = ref<Array<any>>([
 
 onMounted(() => {
   init()
+  initEventHand()
 })
-
-// 需要重定义格式 如 [my-component] ({"a":"my-component"})
-let initData = `请填写数据
-:::my-component {"a":"my-component"}::: 
-:::my-component-b {"a":"my-component"}::: 
-   **文本**
-:::my-card {"a":"my-card"}::: 
-[my-component] ({"a":"my-component"})
-   `
-
-/**
- * 模拟流式返回
- */
+const initEventHand = () => {
+  eventBus.on('addMessage', (data: any) => {
+    messages.value.push({
+      role: 'user',
+      useReasoner: false,
+      content: data
+    })
+  })
+}
 const init = async () => {
   dialogVisible.value = true
-  initData.split('')
-  for (var i of initData.split('')) {
-    await sleepHand(150)
+
+  let list = `请填写数据
+   :::my-component {input{name:'a'},date:{name:'b'}}:::
+   `
+
+  //   let list = `文本
+  //  :::my-component {"data":[1,2,3]} :`
+
+  list.split('')
+  for (var i of list.split('')) {
+    await sleepHand(10)
     messages.value[0].content += i
   }
+  //  messages.value[0].content = list
 }
 
 let a = ref(true)
 
 setTimeout(() => {
   // a.value = false
-}, 1000 * 5)
+},1000 * 5)
 
 defineExpose({
   init

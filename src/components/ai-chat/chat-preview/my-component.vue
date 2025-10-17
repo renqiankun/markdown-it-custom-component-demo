@@ -1,15 +1,14 @@
 <template>
-  <div class="my-component-wrap">
-    这是my-component组件，
-    接受到数据： {{ _data }}
+  <span>
     <el-input v-model="test"></el-input>
     <el-button type="primary" @click="clickHand">提交</el-button>
-  </div>
+  </span>
 </template>
 
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { eventBus } from '@/utils/eventBus'
 const props = withDefaults(
   defineProps<{
     type: string
@@ -23,6 +22,7 @@ let test = ref('')
 
 onMounted(() => {
   console.log('mounted')
+  console.log(test.value)
 })
 onBeforeUnmount(() => {
   console.log('unmounted')
@@ -32,15 +32,8 @@ const clickHand = () => {
   if (!test.value) {
     return ElMessage.warning('请输入内容')
   }
+  eventBus.emit('addMessage', test.value)
 }
 </script>
 
-<style lang="scss" scoped>
-  .my-component-wrap{
-    width: 600px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    padding: 20px;
-    border-radius: 10px;
-    margin: 10px;
-  }
-</style>
+<style lang="scss" scoped></style>

@@ -14,4 +14,4 @@ app.use(createPinia())
 app.use(elementPlus)
 app.mount('#app')
 
-// ;(window as any).__APP__ = app
+;(window as any).__APP__ = app

@@ -1,10 +1,11 @@
 <template>
   <!-- 聊天预览 -->
   <div class="preview-wrap">
+    
     <div class="preview-item" v-for="(item, index) in props.messages" :key="index">
-      <div style="text-align: right" v-if="item.role == 'user'">{{ item.content }}</div>
+      <div style="text-align: right;" v-if="item.role=='user'">{{ item.content }}</div>
       <!-- 回答 -->
-      <chatAnswer v-else :receiveLoading="receiveLoading && index + 1 === messages?.length">
+      <chatAnswer v-else  :receiveLoading="receiveLoading && index + 1 === messages?.length">
         <MdPreview
           editorId="preview-only2"
           id="preview-only"
@@ -24,15 +25,12 @@ import chatAnswer from './chat-answer.vue'
 
 import { MdPreview, config } from 'md-editor-v3'
 import 'md-editor-v3/lib/preview.css'
-// import customComponentPlugin, { type MDCustomPluginComponentOptions } from 'markdown-it-custom-component'
-import customComponentPlugin, { type MDCustomPluginComponentOptions } from '.'
+import customComponentPlugin, { type MDCustomPluginComponentOptions } from 'markdown-it-custom-component'
 import 'markdown-it-custom-component/style.css'
 import myComponent from './my-component.vue'
-import myComponentB from './my-component-b.vue'
-import myCard from './my-card.vue'
-import { onMounted, onUnmounted } from 'vue'
+import { getCurrentInstance, onMounted, onUnmounted } from 'vue';
 
-const { customPlugin, destroy } = customComponentPlugin()
+const { customPlugin, destroy } = customComponentPlugin();
 const props = withDefaults(
   defineProps<{
     messages: any[]
@@ -41,7 +39,8 @@ const props = withDefaults(
   }>(),
   {}
 )
-onMounted(() => {})
+onMounted(() => {
+})
 onUnmounted(() => {
   destroy()
 })
@@ -57,44 +56,25 @@ config({
         type: 'customComponentPlugin',
         plugin: customPlugin,
         options: {
+          debug: false,
+          propsKey: '_data',
+          placeholderClass: 'custom-placeholder',
+          appContext: getCurrentInstance()?.appContext,
           components: {
-            'my-component': {
-              component: myComponent,
-              renderIntermediate: false
-            },
-             'my-component-b': {
-              component: myComponentB,
-              renderIntermediate: false
-            },
-            'my-card': {
-              component: myCard,
-              renderIntermediate: false
-            }
+             'my-component':{
+                component: myComponent,
+                forceMount: false,
+                renderIntermediate: false,
+                propsUseJson: false,
+                multipleProps: false,
+                propsKey: '_data',
+                placeholderClass: 'custom-placeholder',
+             } as MDCustomPluginComponentOptions
           }
         }
       }
-      // {
-      //   type: 'customComponentPlugin',
-      //   plugin: customPlugin,
-      //   options: {
-      //     debug: false,
-      //     propsKey: '_data',
-      //     placeholderClass: 'custom-placeholder',
-      //     components: {
-      //       'my-component': {
-      //         component: myComponent,
-      //         forceMount: false,
-      //         renderIntermediate: false,
-      //         propsUseJson: false,
-      //         multipleProps: false,
-      //         propsKey: '_data',
-      //         placeholderClass: 'custom-placeholder'
-      //       } as MDCustomPluginComponentOptions
-      //     }
-      //   }
-      // }
     ]
-  }
+  },
 })
 const getSafeHTML = (html: string) => {
   return html

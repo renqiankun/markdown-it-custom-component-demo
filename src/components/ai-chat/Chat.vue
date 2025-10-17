@@ -25,10 +25,7 @@
 import chatInput from './chat-input/chat-input.vue'
 import chatPreview from './chat-preview/chat-preview.vue'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-const props = withDefaults(defineProps<{
-  defaultSend:string
-}>(), {
-})
+
 // 所有的消息列表
 let modelValue = defineModel({
   type: Array<any>,
@@ -67,7 +64,6 @@ const stopReciveHand = () => {
 
 
 onMounted(() => {
-  chatMessage.value = props.defaultSend
 })
 onUnmounted(() => {
   stopReciveHand()
