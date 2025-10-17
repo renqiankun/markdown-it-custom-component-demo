@@ -1,6 +1,6 @@
 <template>
   <div class="my-component-wrap">
-    这是my-component组件，
+    这是my-component-b组件，
     接受到数据： {{ _data }}
     <el-input v-model="test"></el-input>
     <el-button type="primary" @click="clickHand">提交</el-button>

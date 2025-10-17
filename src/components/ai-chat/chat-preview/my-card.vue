@@ -1,9 +1,6 @@
 <template>
-  <div class="my-component-wrap">
-    这是my-component组件，
-    接受到数据： {{ _data }}
-    <el-input v-model="test"></el-input>
-    <el-button type="primary" @click="clickHand">提交</el-button>
+  <div class="my-card-wrap">
+    这是my-card组件， 接受到数据： {{ _data }}
   </div>
 </template>
 
@@ -28,16 +25,11 @@ onBeforeUnmount(() => {
   console.log('unmounted')
 })
 
-const clickHand = () => {
-  if (!test.value) {
-    return ElMessage.warning('请输入内容')
-  }
-}
 </script>
 
 <style lang="scss" scoped>
-  .my-component-wrap{
-    width: 600px;
+  .my-card-wrap{
+    width: 500px;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     padding: 20px;
     border-radius: 10px;

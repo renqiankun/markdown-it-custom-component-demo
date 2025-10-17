@@ -1,7 +1,7 @@
 <template>
   <!-- 用户头像及描述 -->
   <div class="user-info-wrap">
-    <!-- <div class="user-head">A</div> -->
+    <div class="user-head">A</div>
     <div class="user-question">
       <slot></slot>
       <!-- <div class="is-loading--box" v-if="receiveLoading">
