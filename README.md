@@ -1,3 +1,5 @@
+此项目废弃， 参考新版：https://github.com/renqiankun/markdown-it-vue-component-demo
+
 # Markdown-it 或 md-editor-v3 Vue 自定义组件插件 (markdown-it-vue-custom-component)
 
 这是一个为 [markdown-it](https://github.com/markdown-it/markdown-it)  或 md-editor-v3 设计的插件，它允许您在 Markdown 内容中无缝嵌入、渲染和交互自定义的 Vue 3 组件。
