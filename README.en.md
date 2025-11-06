@@ -1,3 +1,6 @@
+This project has been deprecated.
+Please refer to the new version here: https://github.com/renqiankun/markdown-it-vue-component-demo
+
 [English](README.en.md) | [中文](README.md)
 
 # Markdown-it Vue Custom Component Plugin (markdown-it-vue-custom-component)
